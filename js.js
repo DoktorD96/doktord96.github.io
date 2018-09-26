@@ -248,12 +248,16 @@ function displayToc2() {
         document.write("<p/>");
         document.write('<span class="labl"><a href="/search/label/' + temp1 + '">' + temp1 + "</a></span><ol class='postname'>");
         firsti = a;
+        
+        debugger;
         do {
             document.write("<li>");
             document.write('<a href="' + postUrl[a] + '">' + postTitle[a] + "</a>");
             document.write("</li>");
-            a = a + 1
+            a = a + 1;
+            debugger;
         } while (postLabels[a] == temp1);
+        debugger;
         b = a;
         document.write("</ol>");
         sortPosts2(firsti, a);
@@ -261,6 +265,7 @@ function displayToc2() {
             break;
             debugger;
         }
+        debugger;
     }
 }
 function toggleTitleSort() {
