@@ -243,6 +243,7 @@ function displayToc2() {
     var a = 0;
     var b = 0;
     while (b < postTitle.length) {
+        debugger;
         temp1 = postLabels[b];
         document.write("<p/>");
         document.write('<span class="labl"><a href="/search/label/' + temp1 + '">' + temp1 + "</a></span><ol class='postname'>");
@@ -257,7 +258,8 @@ function displayToc2() {
         document.write("</ol>");
         sortPosts2(firsti, a);
         if (b > postTitle.length) {
-            break
+            break;
+            debugger;
         }
     }
 }
