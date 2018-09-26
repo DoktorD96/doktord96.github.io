@@ -251,9 +251,6 @@ function displayToc2() {
         do {
             document.write("<li>");
             document.write('<a href="' + postUrl[a] + '">' + postTitle[a] + "</a>");
-            if (postBaru[a] == true) {
-                document.write(' - <span class="new">New!</span>')
-            }
             document.write("</li>");
             a = a + 1
         } while (postLabels[a] == temp1);
