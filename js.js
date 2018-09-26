@@ -64,6 +64,7 @@ function loadtoc(a) {
     sortPosts(sortBy);
     sortlabel();
     tocLoaded = true;
+    displayToc2();
 }
 function filterPosts(a) {
     scroll(0, 0);
@@ -237,6 +238,28 @@ function displayToc(a) {
     }
     var b = document.getElementById("toc");
     b.innerHTML = f + h
+}
+function displayToc2() {
+    var a = 0;
+    var b = 0;
+    while (b < postTitle.length) {
+        temp1 = postLabels[b];
+        document.write("<p/>");
+        document.write('<span class="labl"><a href="/search/label/' + temp1 + '">' + temp1 + "</a></span><ol class='postname'>");
+        firsti = a;
+        do {
+            document.write("<li>");
+            document.write('<a href="' + postUrl[a] + '">' + postTitle[a] + "</a>");
+            document.write("</li>");
+            a = a + 1
+        } while (postLabels[a] == temp1);
+        b = a;
+        document.write("</ol>");
+        sortPosts2(firsti, a);
+        if (b > postTitle.length) {
+            break
+        }
+    }
 }
 function toggleTitleSort() {
     if (sortBy == "titleasc") {
