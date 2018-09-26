@@ -279,3 +279,17 @@ function toggleDateSort() {
     sortPosts(sortBy);
     displayToc(postFilter)
 }
+function showToc() {
+    if (tocLoaded) {
+        displayToc(postFilter);
+        var a = document.getElementById("toclink")
+    } else {
+        alert("Just wait... TOC is loading")
+    }
+}
+function hideToc() {
+    var a = document.getElementById("toc");
+    a.innerHTML = "";
+    var b = document.getElementById("toclink");
+    b.innerHTML = '<a href="#" onclick="scroll(0,0); showToc(); Effect.toggle(\'toc-result\',\'blind\');">?? Menampilkan Daftar Isi</a> <img src="http://radiorodja.googlepages.com/new_1.gif"/>'
+}
