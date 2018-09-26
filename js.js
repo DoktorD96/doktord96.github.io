@@ -279,11 +279,3 @@ function toggleDateSort() {
     sortPosts(sortBy);
     displayToc(postFilter)
 }
-function showToc() {
-    if (tocLoaded) {
-        displayToc(postFilter);
-        var a = document.getElementById("toclink")
-    } else {
-        alert("Just wait... TOC is loading")
-    }
-}
