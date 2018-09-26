@@ -64,7 +64,7 @@ function loadtoc(a) {
     sortPosts(sortBy);
     sortlabel();
     tocLoaded = true;
-    displayToc2();
+    //displayToc2();
 }
 function filterPosts(a) {
     scroll(0, 0);
