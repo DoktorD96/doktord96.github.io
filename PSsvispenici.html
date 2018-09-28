@@ -1,0 +1,122 @@
+<style type="text/css">
+.labl a { text-decoration: none;}
+.labl a { text-decoration: none!important;}
+.labl {
+cursor: pointer;
+color: #ffffff;
+font-weight: bold;
+margin: 0 -5px;
+padding: 1px 0 2px 11px;
+background:#2a5a8e;
+background-color:#2a5a8e;
+border-radius: 4px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+box-shadow: 3px 3px 1px #bbb;
+-moz-box-shadow: 3px 3px 1px #bbb;
+-webkit-box-shadow: 3px 3px 1px #bbb;
+display: block;
+font-weight: normal;
+}
+.labl a {
+ color: #ffffff;
+}
+.labl:first-letter {
+ text-transform: uppercase;
+}
+.postname {
+ padding-left: 26px;
+ font-weight: normal;
+ background: -moz-linear-gradient(right, #C2EAFE 0%, #fff 40%);
+ background: -webkit-gradient(linear, left 80, right 10, color-stop(0.60, #fff), color-stop(1, #eeeeee));
+}
+.postname li {
+ border-bottom: #ddd 1px dotted;
+ margin-right: 5px
+}
+</style>
+<div><ul id="postList12"></ul></div>
+<script type="text/javascript">
+var elmt = document.getElementById("postList12");
+var Labels = new Array();
+var labelsorted = new Array();
+var cirbig = ["А", "Б", "В", "Г", "Д", "Ђ", "Е", "Ж", "З", "И", "Ј", "К", "Л", "Љ", "М", "Н", "Њ", "О", "П", "Р", "С", "Т", "Ћ", "У",
+    "Ф", "Х", "Ц", "Ч", "Џ", "Ш"
+];
+var cirsmall = ["а", "б", "в", "г", "д", "ђ", "е", "ж", "з", "и", "ј", "к", "л", "љ", "м", "н", "њ", "о", "п", "р", "с", "т", "ћ", "у",
+    "ф", "х", "ц", "ч", "џ", "ш"
+];
+var labelsremove = ["Песма дана", "Песник", "листа", "Француска поезија", "Руска поезија", "Светска поезија", "Српска поезија", "Познати велики песници", "Српска поезија", "Данашњи песници", "Балканска поезија", "Украјинска поезија", "Немачка поезија", "Српске епске песме"];
+function labelaposts(data) {
+    var psme = document.getElementById(data);
+    var nizbroj = data;
+    $.ajax({
+        type: 'GET',
+        url: encodeURI('https://www.poezijasustine.rs/feeds/posts/summary/-/' + labelsorted[nizbroj] + '/?alt=json'),
+        dataType: 'json',
+        encode: false,
+        success: function(data) {
+            var feeddta = data.feed.entry;
+            var title = "";
+            var url = "";
+            var wraplist = document.createElement("ol");
+            wraplist.setAttribute("class", "postname");
+            for (var i = 0; i < feeddta.length; i++) {
+                var entryfd = feeddta[i];
+                try {
+                    title = entryfd.title.$t;
+                    for (var j = 0; j < entryfd.link.length; j++) {
+                        if (entryfd.link[j].rel == "alternate") {
+                            url = entryfd.link[j].href;
+                        }
+                    }
+                } catch (err) {
+                    var title = "";
+                    var url = "";
+                }
+
+                var liE = document.createElement("li");
+                var a1E = document.createElement("a");
+                a1E.href = url;
+                a1E.textContent = title;
+                liE.appendChild(a1E);
+                wraplist.appendChild(liE);
+            }
+            psme.appendChild(wraplist);
+        }
+    });
+}
+$(document).ready(function() {
+    $.ajax({
+        type: 'GET',
+        url: 'https://www.poezijasustine.rs/feeds/posts/summary/?alt=json&start-index=1&max-results=1',
+        dataType: 'json',
+        encode: false,
+        success: function(data) {
+
+            Labels = data.feed.category;
+            for (var j = 0; j < 30; j++) {
+                for (var i = 0, len = Labels.length; i < len; i++) {
+                    if (labelsremove.indexOf(Labels[i].term) == -1) {
+                        if (Labels[i].term.charAt(0) == cirbig[j] || Labels[i].term.charAt(0) == cirsmall[j]) {
+                            labelsorted[labelsorted.length] = Labels[i].term;
+                        }
+                    }
+                }
+            }
+            for (var i = 0, len = labelsorted.length; i < len; i++) {
+                var labelapwrp = document.createElement("div");
+                labelapwrp.setAttribute("id", i);
+                var labelapargf = document.createElement("p");
+                labelapargf.setAttribute("class", "labl");
+                labelapargf.setAttribute("onclick", "labelaposts(" + i + ")");
+                var labelapargftxt = document.createTextNode(labelsorted[i]);
+                labelapargf.appendChild(labelapargftxt);
+                labelapwrp.appendChild(labelapargf);
+                elmt.appendChild(labelapwrp);
+
+            }
+        }
+    });
+});
+</script>
