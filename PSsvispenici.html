@@ -48,9 +48,14 @@ var cirsmall = ["а", "б", "в", "г", "д", "ђ", "е", "ж", "з", "и", "ј"
 ];
 var labelsremove = ["Песма дана", "Песник", "листа", "Француска поезија", "Руска поезија", "Светска поезија", "Српска поезија", "Познати велики песници", "Српска поезија", "Данашњи песници", "Балканска поезија", "Украјинска поезија", "Немачка поезија", "Српске епске песме"];
 function labelaposts(data) {
-    var psme = document.getElementById(data);
-    var nizbroj = data;
-    $.ajax({
+var psme = document.getElementById(data);
+var nizbroj = data;
+if ( $("#pn"+nizbroj).length )
+{
+$("#pn"+nizbroj ).toggle();
+}else
+{
+$.ajax({
         type: 'GET',
         url: encodeURI('https://www.poezijasustine.rs/feeds/posts/summary/-/' + labelsorted[nizbroj] + '/?alt=json'),
         dataType: 'json',
@@ -61,6 +66,7 @@ function labelaposts(data) {
             var url = "";
             var wraplist = document.createElement("ol");
             wraplist.setAttribute("class", "postname");
+            wraplist.setAttribute("id", "pn"+nizbroj);
             for (var i = 0; i < feeddta.length; i++) {
                 var entryfd = feeddta[i];
                 try {
@@ -85,6 +91,10 @@ function labelaposts(data) {
             psme.appendChild(wraplist);
         }
     });
+}
+
+
+
 }
 $(document).ready(function() {
     $.ajax({
