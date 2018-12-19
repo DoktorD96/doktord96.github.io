@@ -1,0 +1,8 @@
+<Module>
+<ModulePrefs title=”Custom Gadget“/>
+<Content type=”html“>
+<![CDATA[
+<script type="text/javascript" src="myscripts.jshttps://doktord96.github.io/zamenadomena.js"></script>
+]]>
+</Content>
+</Module>
