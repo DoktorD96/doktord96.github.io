@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta charset="utf-8">
+<title>Link Redirection</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--css dependencies -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"/>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+<!--end of css dependencies -->
+<!--Js dependencies-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
+<style>
+.sweet-overlay{background-color:rgba(0,0,0,.9)}
+body{color: #6d6f72;}
+img{pointer-events:none}
+body{word-wrap: break-word;}
+#hiddenelement{display:none!important;visibility:hidden!important;opacity:0!important;height: 0!important;}
+#urlredbtn{padding: 14px 60px; font-size: 28px;}
+#webwrapers{max-width: 650px;}
+#steps{font-size: 19px;}
+#stepnum, #stepfinal {color: #dc3545; font-size: 22px;}
+</style>
+<script type="text/javascript">
+$( document ).ready(function() {
+var h1 = $("#timerel");
+var steptxt = $("#stepnum");
+h1.html("00:00");
+var seconds = 0;
+var minutes = 0;
+var steps = 0;
+var secctxt = "";
+var mintxt = "";
+function add() {
+setTimeout(function(){ 
+	seconds++;
+    if (seconds > 59) {
+        seconds = 0;
+        minutes++;
+    }
+    if(seconds < 10){
+    	secctxt = "0" + seconds.toString();
+    }else{
+    	secctxt =  seconds.toString();
+    }
+    if(minutes < 10){
+    	mintxt = "0" + minutes.toString();
+    }else{
+    	mintxt = minutes.toString();
+    }
+
+    h1.html(mintxt + ":" + secctxt);
+    add();
+}, 1000);
+}
+add();
+// LISTENERS
+
+$( "#urlredbtn" ).click(function() {
+steps++;
+$( "#hiddenforma" ).submit();
+if(steps < 17){
+steptxt.html(steps.toString());
+}else{
+	alert ("open target url in new tab or reload page?");
+}
+});
+
+
+});
+</script>
+</head>
+<body>
+<center>
+<div id="webwrapers" class='text-center site-content'>
+<br/>
+<h1 id="timerel"></h1>
+<br/>
+<p id="steps">You are on step <span id="stepnum">0</span> of <span id="stepfinal">16</span></p>
+<br/>
+<h1>Discovering Great Content</h1>
+<br/><br/>
+<button type="button"  id="urlredbtn" class="btn btn-danger">Reopen URL</button>
+<br/><br/>
+<h1>How It Works</h1>
+<br/>
+<p>Your content has beeen opened in a separate window. Please navigate to the window to view. This window will remain open and will help you navigate the experience.</p>
+</div>
+</center>
+<div id="hiddenelement">
+<form id="hiddenforma" target="_blank" method="GET" action="https://www.youtube.com">
+  <input type="hidden" name= "ff" value="ff">
+</form> 
+
+
+</div>
+</body>
+</html>
